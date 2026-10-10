@@ -1,3 +1,6 @@
+//go:build amd64 && !noasm && !appengine
+// +build amd64,!noasm,!appengine
+
 /*
  * Minio Cloud Storage, (C) 2016 Minio, Inc.
  *
