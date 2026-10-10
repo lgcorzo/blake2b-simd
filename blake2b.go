@@ -156,7 +156,7 @@ func (d *digest) initialize(c *Config) {
 	// Process key.
 	if c.Key != nil {
 		copy(d.paddedKey[:], c.Key)
-		d.Write(d.paddedKey[:])
+		_, _ = d.Write(d.paddedKey[:])
 		d.isKeyed = true
 	}
 	// Save a copy of initialized state.
@@ -198,7 +198,7 @@ func (d *digest) Reset() {
 	d.f[1] = 0
 	d.nx = 0
 	if d.isKeyed {
-		d.Write(d.paddedKey[:])
+		_, _ = d.Write(d.paddedKey[:])
 	}
 }
 
@@ -286,7 +286,7 @@ func (d *digest) checkSum() [Size]byte {
 func Sum512(data []byte) [64]byte {
 	var d digest
 	d.initialize(defaultConfig)
-	d.Write(data)
+	_, _ = d.Write(data)
 	return d.checkSum()
 }
 
@@ -294,7 +294,7 @@ func Sum512(data []byte) [64]byte {
 func Sum256(data []byte) (out [32]byte) {
 	var d digest
 	d.initialize(config256)
-	d.Write(data)
+	_, _ = d.Write(data)
 	sum := d.checkSum()
 	copy(out[:], sum[:32])
 	return
